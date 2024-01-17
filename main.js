@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const filelist = fs.readdirSync('./xlsx')
 const xlsxArr = []
-const main = ()=>{
+const main = async()=>{
 	// Detect file extension
 	for(var i=0;i<filelist.length;i++){
 		const f = filelist[i]
@@ -17,21 +17,20 @@ const main = ()=>{
 		const f = xlsxArr[i]
 		const workbook = new Excel.Workbook
 		console.log(f)
-		workbook.xlsx.readFile(f).then((event)=>{
+		const wb = await workbook.xlsx.readFile(f)
+		if(wb){
 			const worksheet = workbook.worksheets[0]
 			for(var j=7;j<35;j++){
 				const row = worksheet.getRow(j)
 				const height = row.height
 				if(height){
-					row.height = 65
+					row.height = 95
 				}else{
-					row.height = height + 50
+					row.height = height + 80
 				}
 				await workbook.xlsx.writeFile(f)
-				//const v = row.getCell(1).value
-			
 			}
-		})
+		}			
 	}
 }
 
