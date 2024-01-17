@@ -2,6 +2,13 @@
 	1. Loading excel files and changing cells height
 
 
+---
+	## 2024.01.17		version 0.0.2 -- main
+	-- Function implementation
+	# Added
+	1. Pack function to main and add init
+		-- finished
+---
 	## 2024.01.16		version 0.0.1 -- main
 	-- Function implementation
 	# Added
