@@ -3,6 +3,7 @@ const fs = require('fs')
 
 const filelist = fs.readdirSync('./xlsx')
 const xlsxArr = []
+/*
 const main = async()=>{
 	// Detect file extension
 	for(var i=0;i<filelist.length;i++){
@@ -33,8 +34,64 @@ const main = async()=>{
 		}			
 	}
 }
-
-
+*/
+// Small procurement filter
+const main = async()=>{
+	const file = './a.xlsx'
+	const workbook = new Excel.Workbook
+	const wb = await workbook.xlsx.readFile(file)
+	const contentArr = ['借款','所得稅','能量','天然氣','匯率','燃料','旅費','計程車','電力','汽電','容量',
+		'電費','電能','匯調']
+	const nameArr = ['電力','業務處週轉金','法院','經濟部','斯其大','郵政','水庫','電信','優必闊',
+		'財政部','秀豐','嘉樂寶','福昇','麥寮']
+	const delArr = []
+	
+	const nameMatch = (name)=>{
+		for(var i=0;i<nameArr.length;i++){
+			const isMatch = name.includes(nameArr[i])
+			if(isMatch){
+				return true
+			}
+		}
+	}
+	const contentMatch = (content)=>{
+		for(var i=0;i<contentArr.length;i++){
+			const isMatch = content.includes(contentArr[i])
+			if(isMatch){
+				return true
+			}
+		}
+	}
+	if(wb){
+		// Match process
+		const worksheet = workbook.worksheets[0]
+		for(var i=2;i<999999;i++){
+			const row = worksheet.getRow(i)
+			const name = row.getCell(3).value
+			if(!name){
+				delArr[delArr.length] = i
+				break
+			}
+			const nameStatus = nameMatch(name)
+			if(nameStatus){
+				delArr[delArr.length] = i
+			}else{
+				const content = row.getCell(4).value
+				const contentStatus = contentMatch(content)
+				if(contentStatus){
+					delArr[delArr.length] = i
+				}
+			}			
+		}
+		// Delete process
+		for(var i=0;i<delArr.length;i++){
+			const c = delArr.length-i-1
+			worksheet.spliceRows(delArr[c],1)
+		}
+		const table = worksheet.getTable('test')
+		await workbook.xlsx.writeFile(file)
+	}
+}
 const init = ()=>{
 	main()
 }

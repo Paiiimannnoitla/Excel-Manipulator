@@ -1,7 +1,12 @@
 @@@Road Map
-	1. Loading excel files and changing cells height
+	1. Add customized config
 
-
+---
+	## 2024.01.25		version 0.0.3 -- main
+	-- Function implementation
+	# Added
+	1. Small procurement filter implementation
+		-- finished
 ---
 	## 2024.01.17		version 0.0.2 -- main
 	-- Function implementation
