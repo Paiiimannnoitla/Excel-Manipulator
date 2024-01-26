@@ -40,7 +40,7 @@ const main = async()=>{
 	const file = './a.xlsx'
 	const workbook = new Excel.Workbook
 	const wb = await workbook.xlsx.readFile(file)
-	const contentArr = ['借款','所得稅','能量','天然氣','匯率','燃料','旅費','計程車','電力','汽電','容量',
+	const contentArr = ['郵資','印花稅','借款','所得稅','能量','天然氣','匯率','燃料','旅費','計程車','電力','汽電','容量',
 		'電費','電能','匯調']
 	const nameArr = ['電力','業務處週轉金','法院','經濟部','斯其大','郵政','水庫','電信','優必闊',
 		'財政部','秀豐','嘉樂寶','福昇','麥寮']
