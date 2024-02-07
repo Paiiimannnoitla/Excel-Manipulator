@@ -2,6 +2,12 @@
 	1. Add customized config
 
 ---
+	## 2024.02.07		version 0.0.4 -- main
+	-- Functimn implementation
+	# Added
+	1. Add Direct Supply and Wheeling invoice auto filler function
+		-- finished
+---
 	## 2024.01.25		version 0.0.3 -- main
 	-- Function implementation
 	# Added

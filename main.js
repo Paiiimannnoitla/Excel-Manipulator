@@ -88,11 +88,45 @@ const main = async()=>{
 			const c = delArr.length-i-1
 			worksheet.spliceRows(delArr[c],1)
 		}
-		const table = worksheet.getTable('test')
 		await workbook.xlsx.writeFile(file)
 	}
 }
+const autoFiller = async()=>{
+	const key = fs.readFileSync('./key.txt','utf8')
+	const keyArr = key.split('\r\n')
+	
+	const value = fs.readFileSync('./value.txt','utf8')
+	const valArr = value.split('\r\n')
+	
+	const file = './1130103-轉直供筆記-更新中.xlsx'
+	const workbook = new Excel.Workbook
+	const wb = await workbook.xlsx.readFile(file)
+	
+	if(wb){
+		const worksheet = workbook.worksheets[0]
+		for(var i=660;i<1000;i++){
+			const row = worksheet.getRow(i)
+			const contract = row.getCell(4).value
+			const id = keyArr.indexOf(contract)
+			if(id+1){
+				console.log(i)
+				const v = valArr[id]
+				row.getCell(11).value = v
+			}
+			
+		}
+		const fin = await workbook.xlsx.writeFile(file) 
+		if(fin){
+			console.log('end')
+		}
+	}
+}
+const func = 2
 const init = ()=>{
-	main()
+	if(func == 1){
+		main()
+	}else if(func == 2){
+		autoFiller()
+	}
 }
 init()
